@@ -1,0 +1,19 @@
+body {
+	background: orange;
+}
+li {
+	border: 1px dashed black;
+}
+#ios {
+	background: green;
+}
+#web{
+	background: red;
+}
+#editing {
+	background: yellow
+}
+.completed {
+	text-decoration: line-through;
+	background: pink; 
+}

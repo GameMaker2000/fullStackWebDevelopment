@@ -1,0 +1,14 @@
+img {
+	width: 30%; /*Divides the page (100%) into 30% increments for the images and leaves 10%*/
+	float: left;
+	margin: 1.66%;
+}
+h1 {
+	font-family: Raleway;
+	margin-left: 1.66%;
+	font-size: 23px;
+	text-transform: uppercase;
+	border-bottom: 2px solid;
+	width: 30%;
+	padding-bottom: 20px;
+}
