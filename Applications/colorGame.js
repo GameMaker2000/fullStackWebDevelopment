@@ -5,11 +5,25 @@ var pickedColor = pickColor();
 var colorDisplay = document.getElementById('colorDisplay');
 var messageDisplay = document.querySelector('#message');
 var h1Display = document.querySelector('h1');
-var newGameButton = doucment.querySelector('#newGameButton');
+var newGameButton = document.querySelector('#newGameButton');
 
+//Creates function for New Colors button
 newGameButton.addEventListener("click", function(){
-	alert("clicked reset button");
-});
+	//Makes h1Display back to body background
+	h1Display.style.backgroundColor = "#232323";
+	//Makes button back to say New Colors
+	newGameButton.textContent = "New Colors";
+	//Generates new colors
+	colors = generateRandomColors(6);
+	//Pickes new colors from array to be correct one
+	pickedColor = pickColor();
+	//Changes colors of squares
+	for (var i = 0; i < squares.length; i++) {
+	squares[i].style.backgroundColor = colors[i];
+	//Changes colorDisplay to new correct color
+	colorDisplay.textContent = pickedColor;
+}
+})
 
 //Changes colorDisplay to the picked color
 colorDisplay.textContent = pickedColor;
@@ -29,6 +43,7 @@ for (var i = 0; i < squares.length; i++) {
 			messageDisplay.textContent = "Correct!";
 			changeColors(clickedColor);	
 			h1Display.style.background = clickedColor;
+			newGameButton.textContent = "Play Again?";
 
 		} else {
 			this.style.background = "#232323";
@@ -46,6 +61,7 @@ function changeColors(color) {
 	};
 }
 
+//Function to pick the correct color from array randomly
 function pickColor() {
 	/*Generates random number based on the array length
 	wanted*/
@@ -53,6 +69,7 @@ function pickColor() {
 	return colors[random]
 }
 
+//Function to generate the colors based on array length
 function generateRandomColors(num) {
 	//Create an array
 	var arr = []
@@ -64,6 +81,7 @@ function generateRandomColors(num) {
 	return arr;
 }
 
+//Function to create random colors
 function randomColor() {
 	//Pick a "red" 0 - 255
 	var r = Math.floor(Math.random() * 256);
