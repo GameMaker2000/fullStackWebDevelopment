@@ -25,4 +25,7 @@ h1 {
 	height: 30px;
 	text-align: center;
 }
-/*Testing*/
+
+.selected {
+	background: blue;
+}

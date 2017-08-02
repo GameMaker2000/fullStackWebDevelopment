@@ -1,11 +1,61 @@
 //All variable declarations
-var colors = generateRandomColors(6);
+var colors = generateRandomColors(numSquares);
 var squares = document.querySelectorAll(".square");
 var pickedColor = pickColor();
 var colorDisplay = document.getElementById('colorDisplay');
 var messageDisplay = document.querySelector('#message');
 var h1Display = document.querySelector('h1');
 var newGameButton = document.querySelector('#newGameButton');
+var easyBtn = document.querySelector('#easyBtn');
+var hardBtn = document.querySelector('#hardBtn');
+var numSquares = 6;
+
+//Allows refresh of page
+function init() {
+  numSquares = 6;
+  colors = generateRandomColors(numSquares);
+ pickedColor = pickColor();
+}
+
+init();
+
+//Function for the Easy button
+easyBtn.addEventListener("click", function(){
+	h1Display.style.backgroundColor = "#232323";
+	//Changes button to selected
+	easyBtn.classList.add("selected");
+	hardBtn.classList.remove("selected");
+	//Changes numSquares to be generated to 3
+	numSquares = 3;
+	/*Generates colors, assigns them then makes last 3 color spaces
+	invisible*/
+	colors = generateRandomColors(numSquares);
+	pickedColor = pickColor();
+	colorDisplay.textContent = pickedColor;
+	for (var i = 0; i < squares.length; i++) {
+		if(colors[i]) {
+			squares[i].style.backgroundColor = colors[i];
+		} else {
+			squares[i].style.display = "none";
+		}
+	};
+})
+
+//Function for the Hard button(essentially same as easy button)
+hardBtn.addEventListener("click", function(){
+	hardBtn.classList.add("selected");
+	easyBtn.classList.remove("selected");
+	h1Display.style.backgroundColor = "#232323";
+	numSquares = 6;
+	colors = generateRandomColors(numSquares);
+	pickedColor = pickColor();
+	colorDisplay.textContent = pickedColor;
+	for (var i = 0; i < squares.length; i++) {
+		squares[i].style.backgroundColor = colors[i];
+		squares[i].style.display = "block";
+	};
+
+})
 
 //Creates function for New Colors button
 newGameButton.addEventListener("click", function(){
@@ -14,7 +64,7 @@ newGameButton.addEventListener("click", function(){
 	//Makes button back to say New Colors
 	newGameButton.textContent = "New Colors";
 	//Generates new colors
-	colors = generateRandomColors(6);
+	colors = generateRandomColors(numSquares);
 	//Pickes new colors from array to be correct one
 	pickedColor = pickColor();
 	//Changes colors of squares
