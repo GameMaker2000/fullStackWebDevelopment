@@ -1,3 +1,4 @@
+//All variable declarations
 var colors = generateRandomColors(6);
 var squares = document.querySelectorAll(".square");
 var pickedColor = pickColor();
