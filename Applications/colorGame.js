@@ -1,4 +1,5 @@
 //All variable declarations
+var numSquares = 6;
 var colors = generateRandomColors(numSquares);
 var squares = document.querySelectorAll(".square");
 var pickedColor = pickColor();
@@ -8,7 +9,42 @@ var h1Display = document.querySelector('h1');
 var newGameButton = document.querySelector('#newGameButton');
 var easyBtn = document.querySelector('#easyBtn');
 var hardBtn = document.querySelector('#hardBtn');
-var numSquares = 6;
+var modeButtons = document.querySelectorAll('.mode');
+
+for(var i = 0; i < modeButtons.length; i++) {
+	modeButtons[i].addEventListener("click", function() {
+		modeButtons[0].classList.remove('selected');
+		modeButtons[1].classList.remove('selected');
+		this.classList.add('selected');
+
+		this.textContent === "Easy" ? numSquares = 3: numSquares = 6; 
+		reset();
+	})
+}
+
+function reset() {
+	//Makes h1Display back to body background
+	messageDisplay.textContent = "";
+	//Sets h1Display background to steelblue
+	h1Display.style.backgroundColor = "steelblue";
+	//Makes button back to say New Colors
+	newGameButton.textContent = "New Colors";
+	//Generates new colors
+	colors = generateRandomColors(numSquares);
+	//Pickes new colors from array to be correct one
+	pickedColor = pickColor();
+	//Changes colors of squares
+	for (var i = 0; i < squares.length; i++) {
+		if(colors[i]) {
+			squares[i].style.display = "block";
+			squares[i].style.background = colors[i];
+		} else {
+			squares[i].style.display = "none";
+		}
+	//Changes colorDisplay to new correct color
+	colorDisplay.textContent = pickedColor;
+	}
+}
 
 //Allows refresh of page
 function init() {
@@ -19,60 +55,10 @@ function init() {
 
 init();
 
-//Function for the Easy button
-easyBtn.addEventListener("click", function(){
-	h1Display.style.backgroundColor = "#232323";
-	//Changes button to selected
-	easyBtn.classList.add("selected");
-	hardBtn.classList.remove("selected");
-	//Changes numSquares to be generated to 3
-	numSquares = 3;
-	/*Generates colors, assigns them then makes last 3 color spaces
-	invisible*/
-	colors = generateRandomColors(numSquares);
-	pickedColor = pickColor();
-	colorDisplay.textContent = pickedColor;
-	for (var i = 0; i < squares.length; i++) {
-		if(colors[i]) {
-			squares[i].style.backgroundColor = colors[i];
-		} else {
-			squares[i].style.display = "none";
-		}
-	};
-})
-
-//Function for the Hard button(essentially same as easy button)
-hardBtn.addEventListener("click", function(){
-	hardBtn.classList.add("selected");
-	easyBtn.classList.remove("selected");
-	h1Display.style.backgroundColor = "#232323";
-	numSquares = 6;
-	colors = generateRandomColors(numSquares);
-	pickedColor = pickColor();
-	colorDisplay.textContent = pickedColor;
-	for (var i = 0; i < squares.length; i++) {
-		squares[i].style.backgroundColor = colors[i];
-		squares[i].style.display = "block";
-	};
-
-})
 
 //Creates function for New Colors button
 newGameButton.addEventListener("click", function(){
-	//Makes h1Display back to body background
-	h1Display.style.backgroundColor = "#232323";
-	//Makes button back to say New Colors
-	newGameButton.textContent = "New Colors";
-	//Generates new colors
-	colors = generateRandomColors(numSquares);
-	//Pickes new colors from array to be correct one
-	pickedColor = pickColor();
-	//Changes colors of squares
-	for (var i = 0; i < squares.length; i++) {
-	squares[i].style.backgroundColor = colors[i];
-	//Changes colorDisplay to new correct color
-	colorDisplay.textContent = pickedColor;
-}
+	reset();
 })
 
 //Changes colorDisplay to the picked color
