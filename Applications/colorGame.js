@@ -1,8 +1,9 @@
 //All variable declarations
 var numSquares = 6;
-var colors = generateRandomColors(numSquares);
-var squares = document.querySelectorAll(".square");
+var colors = [];
 var pickedColor = pickColor();
+
+var squares = document.querySelectorAll(".square");
 var colorDisplay = document.getElementById('colorDisplay');
 var messageDisplay = document.querySelector('#message');
 var h1Display = document.querySelector('h1');
@@ -11,16 +12,7 @@ var easyBtn = document.querySelector('#easyBtn');
 var hardBtn = document.querySelector('#hardBtn');
 var modeButtons = document.querySelectorAll('.mode');
 
-for(var i = 0; i < modeButtons.length; i++) {
-	modeButtons[i].addEventListener("click", function() {
-		modeButtons[0].classList.remove('selected');
-		modeButtons[1].classList.remove('selected');
-		this.classList.add('selected');
-
-		this.textContent === "Easy" ? numSquares = 3: numSquares = 6; 
-		reset();
-	})
-}
+init();
 
 function reset() {
 	//Makes h1Display back to body background
@@ -48,27 +40,28 @@ function reset() {
 
 //Allows refresh of page
 function init() {
-  numSquares = 6;
-  colors = generateRandomColors(numSquares);
- pickedColor = pickColor();
+
+	setupModeButtons();
+	assignColors();
+	reset();
 }
 
-init();
+function setupModeButtons () {
+	//Makes buttons which change the amount of squares shown
+	for(var i = 0; i < modeButtons.length; i++) {
+	modeButtons[i].addEventListener("click", function() {
+		modeButtons[0].classList.remove('selected');
+		modeButtons[1].classList.remove('selected');
+		this.classList.add('selected');
 
+		this.textContent === "Easy" ? numSquares = 3: numSquares = 6; 
+		reset();
+		})
+	}
+}
 
-//Creates function for New Colors button
-newGameButton.addEventListener("click", function(){
-	reset();
-})
-
-//Changes colorDisplay to the picked color
-colorDisplay.textContent = pickedColor;
-
-//Makes the squares different colors
-for (var i = 0; i < squares.length; i++) {
-	//Adds initial colors
-	squares[i].style.backgroundColor = colors[i]
-
+function assignColors() {
+	for (var i = 0; i < squares.length; i++) {
 	//Adds click listener
 	squares[i].addEventListener("click", function() {
 		var clickedColor = this.style.backgroundColor
@@ -84,9 +77,18 @@ for (var i = 0; i < squares.length; i++) {
 		} else {
 			this.style.background = "#232323";
 			messageDisplay.textContent = "Try Again!";
-		}
-	});
-};
+			}
+		});
+	};
+}
+
+//Creates function for New Colors button
+newGameButton.addEventListener("click", function(){
+	reset();
+})
+
+//Changes colorDisplay to the picked color
+colorDisplay.textContent = pickedColor;
 
 //Changes all of the squares' color into the color provided
 function changeColors(color) {
